@@ -21,20 +21,20 @@ class AdminSeeder extends Seeder
                 'name' => 'Super Admin',
                 'email' => 'super_admin@gmail.com',
                 'role' => 'super_admin',
-                'u_id' => 0,
+                'p_id' => 0,
             ],
             [
                 'name' => 'Sub Admin',
                 'email' => 'sub_admin@gmail.com',
                 'role' => 'sub_admin',
-                'u_id' => 1,
+                'p_id' => 1,
             ],
         ];
         $now = Carbon::now();
         foreach ($admins as $adminData) {
             $admin = Admin::create([
                 'name' => $adminData['name'],
-                'u_id' => $adminData['u_id'],
+                'p_id' => $adminData['p_id'],
                 'email' => $adminData['email'],
                 'email_verified_at' => $now,
                 'password' => Hash::make('admin@admin'),

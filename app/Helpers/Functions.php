@@ -32,10 +32,30 @@ function role_is_super_admin($role){
     }
 }
 
+// function compare_roles_hierarchy_with_admins_by_id($id){
+//     $currentUserRoleHierarchy = Auth::guard('admin')->user()->roles->first()->hierarchy;
+//     dd($id);
+//     $dataRoleHierarchy = Admin::where('id', $id)->first()->roles->first()->hierarchy;
+//     if($currentUserRoleHierarchy < $dataRoleHierarchy){
+//         return true;
+//     }
+//     else{
+//         return false;
+//     }
+// }
+function get_current_user_role_hierarchy()
+{
+    return Auth::guard('admin')->user()?->roles()->first()?->hierarchy;
+}
 function compare_roles_hierarchy_with_admins_by_id($id){
-    $currentUserRoleHierarchy = Auth::guard('admin')->user()->roles->first()->hierarchy;
-    $dataRoleHierarchy = Admin::where('id', $id)->first()->roles->first()->hierarchy;
-    if($currentUserRoleHierarchy < $dataRoleHierarchy){
+    $currentUserRoleHierarchy = get_current_user_role_hierarchy();
+    $data = Admin::where('id', $id)->first();
+    $dataRole = $data && $data->roles->first();
+    $dataRoleHierarchy = null;
+    if($dataRole){
+        $dataRoleHierarchy = Admin::where('id', $id)->first()->roles->first()->hierarchy;
+    }
+    if($dataRoleHierarchy == null || $currentUserRoleHierarchy < $dataRoleHierarchy){
         return true;
     }
     else{

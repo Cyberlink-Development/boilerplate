@@ -33,7 +33,7 @@ class AdminController extends Controller implements HasMiddleware
     public function index()
     {
         $userId = Auth::id(); 
-        $data = Admin::where('u_id', $userId)->get();
+        $data = Admin::where('p_id', $userId)->get();
         // $data = Admin::get();
         return view('admin.manage-admins.index',compact('data'));
     }
@@ -71,7 +71,7 @@ class AdminController extends Controller implements HasMiddleware
             else{
                 $filename = null;
             }
-            $uid= Auth::id();
+            $pid= Auth::id();
             // dd($uid, $request);
             $now = Carbon::now();
             $data = Admin::create([
@@ -81,7 +81,7 @@ class AdminController extends Controller implements HasMiddleware
                 'phone' => $request->phone,
                 'image' => $filename,
                 'email_verified_at' => $now,
-                'u_id'  => $uid,
+                'p_id'  => $pid,
                 'password' => Hash::make($request->password),
             ]);
             $role = Role::findOrFail($request->role);
