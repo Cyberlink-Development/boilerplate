@@ -1,5 +1,3 @@
-# Sangam Portfolio CMS Development
-
 ## Notes
 
 1. For notification, this project uses toastrjs.
